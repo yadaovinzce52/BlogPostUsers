@@ -35,7 +35,8 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return db.get_or_404(User, user_id)
+    return db.session.execute(db.select(User).where(User.id == user_id)).scalar()
+    #return db.get_or_404(User, user_id)
 
 
 # CONFIGURE TABLES
